@@ -6,21 +6,16 @@ api_app = Flask(__name__)
 def index():
     return "SDPX GROUP 3"
 
-@api_app.route('/is_prime', methods=['GET'])
-def is_prime_check():
-    return "Please provide a number to check if it is prime"
-
-@api_app.route('/is_prime/<num>', methods=['GET'])
-def is_prime(num):
+@api_app.route('/is1honor/<num>', methods=['GET'])
+def is1honor(num):
     try:
         num = eval(num)
-        if num < 2 or num != int(num):
-            return jsonify({"Number": num, "Is_prime": False})
+        if num >= 3.50 and num <= 4.00:
+            return jsonify({"Grade": num, "is1honor": True})
+        elif num < 3.50 and num >= 0.00:
+            return jsonify({"Grade": num, "is1honor": False})
         else:
-            for i in range(2, int(num**0.5) + 1):
-                if num % i == 0:
-                    return jsonify({"Number": num, "Is_prime": False})
-            return jsonify({"Number": num, "Is_prime": True})
+            return jsonify({"ERROR": "Invalid input"})
     except:
         return jsonify({"ERROR": "Invalid input"})
 
