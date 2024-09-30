@@ -1,4 +1,4 @@
-# Final
+# is_prime
 
 
 
@@ -15,14 +15,14 @@ Already a pro? Just edit this README.md and make it your own. Want to make it ea
 
 ```
 cd existing_repo
-git remote add origin https://gitlab.com/softdevthree/final.git
+git remote add origin https://gitlab.com/softdevthree/is_prime.git
 git branch -M main
 git push -uf origin main
 ```
 
 ## Integrate with your tools
 
-- [ ] [Set up project integrations](https://gitlab.com/softdevthree/final/-/settings/integrations)
+- [ ] [Set up project integrations](https://gitlab.com/softdevthree/is_prime/-/settings/integrations)
 
 ## Collaborate with your team
 
