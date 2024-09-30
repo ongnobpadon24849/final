@@ -3,7 +3,7 @@ pipeline {
 
     stages {
         stage('Agent Test Server') {
-            agent { label 'VM_master' }
+            agent { label 'VM_test' }
 
             stages {
                 stage("Clone Repository From is_prime On GitLab") {
