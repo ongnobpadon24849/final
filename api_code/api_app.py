@@ -11,9 +11,9 @@ def is1honor(num):
     try:
         num = eval(num)
         if num >= 3.50 and num <= 4.00:
-            return jsonify({"Grade": num, "is1honor": True})
+            return jsonify({"is1honor": True})
         elif num < 3.50 and num >= 0.00:
-            return jsonify({"Grade": num, "is1honor": False})
+            return jsonify({"is1honor": False})
         else:
             return jsonify({"ERROR": "Invalid input"})
     except:
