@@ -1,5 +1,6 @@
 pipeline {
     agent none
+
     stages {
         stage('Agent Test Server') {
             agent { label 'VM_test' }
@@ -11,12 +12,12 @@ pipeline {
                             withCredentials([usernamePassword(credentialsId: "Gitlab_ongnobpadon24849", 
                                                             usernameVariable: "GIT_USERNAME", 
                                                             passwordVariable: "GIT_PASSWORD")]) {
-                                if (fileExists('is_prime')) {
-                                    dir('is_prime') {
+                                if (fileExists('final')) {
+                                    dir('final') {
                                         sh "git pull origin main"
                                     }
                                 } else {
-                                    sh "git clone https://${GIT_USERNAME}:${GIT_PASSWORD}@gitlab.com/softdevthree/is_prime.git"
+                                    sh "git clone https://${GIT_USERNAME}:${GIT_PASSWORD}@gitlab.com/softdevthree/final.git"
                                 }
                             }
                         }
@@ -26,10 +27,10 @@ pipeline {
                 stage("Unit Test") {
                     steps {
                         script {
-                            dir('is_prime') {
+                            dir('final') {
                                 sh '''
                                     . /home/test/my_env/bin/activate
-                                    python3 /home/test/workspace/JenkinsAndDeploy/is_prime/functiontest.py
+                                    python3 /home/test/workspace/JenkinsAndDeploy/final/functiontest.py
                                     '''
                             }
                         }
@@ -55,18 +56,18 @@ pipeline {
                     }
                 }
 
-                stage("Clone Repository From is_prime_robot_test") {
+                stage("Clone Repository From final_robot_test") {
                     steps {
                         script {
                             withCredentials([usernamePassword(credentialsId: "Gitlab_ongnobpadon24849", 
                                                             usernameVariable: "GIT_USERNAME", 
                                                             passwordVariable: "GIT_PASSWORD")]) {
-                                if (fileExists('is_prime_robot_test')) {
-                                    dir('is_prime_robot_test') {
+                                if (fileExists('final_robot_test')) {
+                                    dir('final_robot_test') {
                                         sh "git pull origin main"
                                     }
                                 } else {
-                                    sh "git clone https://${GIT_USERNAME}:${GIT_PASSWORD}@gitlab.com/softdevthree/is_prime_robot_test.git"
+                                    sh "git clone https://${GIT_USERNAME}:${GIT_PASSWORD}@gitlab.com/softdevthree/final_robot_test.git"
                                 }
                             }
                         }
@@ -75,11 +76,11 @@ pipeline {
 
                 stage("Run Robot-Test") {
                     steps {
-                        dir('is_prime_robot_test') {
+                        dir('final_robot_test') {
                             script {
                                 sh '''
                                     . /home/test/my_env/bin/activate
-                                    robot /home/test/workspace/JenkinsAndDeploy/is_prime_robot_test/test_is_prime.robot
+                                    robot /home/test/workspace/JenkinsAndDeploy/final_robot_test/test_final.robot
                                     '''
                             }
                         }
@@ -93,8 +94,8 @@ pipeline {
                                                             usernameVariable: "GIT_USERNAME", 
                                                             passwordVariable: "GIT_PASSWORD")]) {
                                 sh "docker login -u ${GIT_USERNAME} -p ${GIT_PASSWORD} registry.gitlab.com"
-                                sh "docker tag flask-app registry.gitlab.com/softdevthree/is_prime"
-                                sh "docker push registry.gitlab.com/softdevthree/is_prime"
+                                sh "docker tag flask-app registry.gitlab.com/softdevthree/final"
+                                sh "docker push registry.gitlab.com/softdevthree/final"
                             }
                         }
                     }
@@ -113,7 +114,7 @@ pipeline {
                                                             usernameVariable: "GIT_USERNAME", 
                                                             passwordVariable: "GIT_PASSWORD")]) {
                                 sh "docker login -u ${GIT_USERNAME} -p ${GIT_PASSWORD} registry.gitlab.com"
-                                sh "docker pull registry.gitlab.com/softdevthree/is_prime"
+                                sh "docker pull registry.gitlab.com/softdevthree/final"
                             }
                         }
                     }
@@ -123,7 +124,7 @@ pipeline {
                     steps {
                         script {
                             sh "docker ps -a -q -f name=flask-app | xargs -r docker rm -f"
-                            sh "docker run -d --name flask-app -p 8080:5000 registry.gitlab.com/softdevthree/is_prime"
+                            sh "docker run -d --name flask-app -p 8080:5000 registry.gitlab.com/softdevthree/final"
                         }
                     }
                 }
