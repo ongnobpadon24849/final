@@ -29,8 +29,8 @@ pipeline {
                         script {
                             dir('final') {
                                 sh '''
-                                    . /home/master/my_env/bin/activate
-                                    python3 /home/master/workspace/JenkinsAndDeploy/final/functiontest.py
+                                    . /home/test/my_env/bin/activate
+                                    python3 /home/test/workspace/JenkinsAndDeploy/final/functiontest.py
                                     '''
                             }
                         }
@@ -79,8 +79,8 @@ pipeline {
                         dir('final_robot_test') {
                             script {
                                 sh '''
-                                    . /home/master/my_env/bin/activate
-                                    robot /home/master/workspace/JenkinsAndDeploy/final_robot_test/test_final.robot
+                                    . /home/test/my_env/bin/activate
+                                    robot /home/test/workspace/JenkinsAndDeploy/final_robot_test/test_final.robot
                                     '''
                             }
                         }
