@@ -6,16 +6,12 @@ api_app = Flask(__name__)
 def index():
     return "SDPX GROUP 3"
 
-@api_app.route('/is1honor/<num>', methods=['GET'])
-def is1honor(num):
+@api_app.route('/mul5/<num>', methods=['GET'])
+def mul5(num):
     try:
         num = eval(num)
-        if num >= 3.50 and num <= 4.00:
-            return jsonify({"is1honor": True})
-        elif num < 3.50 and num >= 0.00:
-            return jsonify({"is1honor": False})
-        else:
-            return jsonify({"ERROR": "Invalid input"})
+        out = f'{num*5}'
+        return jsonify({"result": out})
     except:
         return jsonify({"ERROR": "Invalid input"})
 

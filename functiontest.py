@@ -9,29 +9,29 @@ class FlaskTestCase(unittest.TestCase):
     def setUp(self):
         self.tester = api_app.test_client()
 
-    def test_x_is_3dot6(self):
-        response = self.tester.get('/is1honor/3.6')
+    def test_x_is_1(self):
+        response = self.tester.get('/mul5/1')
         data = json.loads(response.data.decode('utf-8'))
         self.assertEqual(response.status_code, 200)
-        self.assertIn('is1honor', data)
-        self.assertEqual(data.get('is1honor'), True)
-        print(f"Test(/is1honor/3.6) ==> Response: {data}")
+        self.assertIn('result', data)
+        self.assertEqual(data.get('result'), '5')
+        print(f"Test(/mul5/1) ==> Response: {data}")
 
-    def test_x_is_2dot0(self):
-        response = self.tester.get('/is1honor/2.0')
+    def test_x_is_neg10(self):
+        response = self.tester.get('/mul5/-10') 
         data = json.loads(response.data.decode('utf-8'))
         self.assertEqual(response.status_code, 200)
-        self.assertIn('is1honor', data)
-        self.assertEqual(data.get('is1honor'), False)
-        print(f"Test(/is1honor/3.5) ==> Response: {data}")
+        self.assertIn('result', data)
+        self.assertEqual(data.get('result'), '-50')
+        print(f"Test(/mul5/-10) ==> Response: {data}")
 
-    def test_x_is_5dot1(self):
-        response = self.tester.get('/is1honor/5.1')
+    def test_x_is_1dot5(self):
+        response = self.tester.get('/mul5/1.5')
         data = json.loads(response.data.decode('utf-8'))
         self.assertEqual(response.status_code, 200)
-        self.assertIn('ERROR', data)
-        self.assertEqual(data.get('ERROR'), "Invalid input")
-        print(f"Test(/is1honor/5.1) ==> Response: {data}")
+        self.assertIn('result', data)
+        self.assertEqual(data.get('result'), '7.5')
+        print(f"Test(/mul5/1.5) ==> Response: {data}")
 
 if __name__ == '__main__':
     unittest.main()
